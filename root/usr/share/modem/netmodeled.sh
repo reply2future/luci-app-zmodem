@@ -11,7 +11,7 @@ do
     network_mode=$(sendat 2 'at+qnwinfo' | grep '+QNWINFO' | awk -F\" '{print $2}' | tr -d '\r\n')
 
     # 判断网络模式并更新LED状态
-    if echo "$network_mode" | grep -q "TDD"; then
+    if echo "$network_mode" | grep -q "5G"; then
         # 包含TDD，点亮hc:blue:cmode5，熄灭hc:blue:cmode4
         echo 1 > /sys/class/leds/hc:blue:cmode5/brightness
         echo 0 > /sys/class/leds/hc:blue:cmode4/brightness
