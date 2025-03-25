@@ -534,11 +534,11 @@
                     printMsg "Internet Connection Ready."
                     break
                 else
-                    printMsg "HTTP status code is not 204 for either URL. Retry $((count + 1))."
+                    printMsg "HTTP status code is not 204 for either URL. Retry $((wantstcount + 1))."
                 fi
-                sleep 2
+                sleep 5
                 wantstcount=$((wantstcount + 1))
-                if [ "$wantstcount" -eq 20 ]; then
+                if [ "$wantstcount" -ge 20 ]; then
                     printMsg "Failed to Init Modem after $wantstcount"
                     exit 1
                 fi
