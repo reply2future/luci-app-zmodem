@@ -3,10 +3,8 @@
 PROGRAM="RM520N_IPCHK"
 ENABLE_NATIVE_IPV6=$(uci get modem.@ndis[0].enable_native_ipv6) || ENABLE_NATIVE_IPV6=0
 LOCKFILE="/tmp/ipcheck.lock"
-RETRY_LIMIT_FILE="/tmp/retrylimit"
 FAIL_COUNT=0
 MAX_FAIL_COUNT=5
-RETRY_LIMIT_SLEEP_TIME=1h
 
 printMsg() {
     logger -t "${PROGRAM}" "$1"
@@ -58,13 +56,7 @@ reconnect() {
 }
 
 handle_retry_limit() {
-    if [[ -e "$RETRY_LIMIT_FILE" ]]; then
-        printMsg "Retry limit file ($RETRY_LIMIT_FILE) already exists. Exiting."
-        printMsg "FAILURE to save the world, Retry Modem Init, exit"
-        sleep "$RETRY_LIMIT_SLEEP_TIME"
-    else
-        touch "$RETRY_LIMIT_FILE"
-    fi
+    printMsg "Handle retry limit, Retry Modem Init and exit ipcheck"
 
     /usr/share/modem/rm520n.sh &
     rm -f "$LOCKFILE"
@@ -85,7 +77,6 @@ check_ip_if_alive() {
     else
         update_network_type
         FAIL_COUNT=0
-        rm -f "$RETRY_LIMIT_FILE"
         return
     fi
 
