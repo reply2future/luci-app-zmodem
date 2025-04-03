@@ -41,6 +41,7 @@ Modem_Enable=$(uci -q get modem.@ndis[0].enable) || Modem_Enable=1
 if [ "$Modem_Enable" == 0 ]; then
     echo 0 >/sys/class/gpio/cpe-pwr/value
     printMsg "禁用模块，退出"
+    echo "SIM卡没有启用" > /tmp/simcardstat
     rm $lock_file
     exit 0
 else
