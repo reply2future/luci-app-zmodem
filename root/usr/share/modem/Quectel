@@ -1,5 +1,5 @@
 #!/bin/sh
-ATPORT=3
+ATPORT=2
 #Quectel
 lte_bw() {
 	BW=$(echo $BW | grep -o "[0-5]\{1\}")

@@ -27,7 +27,7 @@ case $sim_sel in
 esac
 
 
-SIM_Check=$(sendat 3 AT+CPIN?)
+SIM_Check=$(sendat 2 AT+CPIN?)
 if [ -z "$(echo "$SIM_Check" | grep "READY")" ]; then
     {    
     echo `sendat 2 "ATI" | sed -n '3p'|sed 's/\r$//'` #'RM520N-CN'
